@@ -9,8 +9,8 @@
 #include "view/view.h"
 #include "view/camera.h"
 #include "eventchannel/eventmanager.h"
+#include "loaders/native/map_loaders/map_loader.h"
 
-#include "map_loader.h"
 #include "DemoMouseListener.h"
 
 int main(int argc, char *argv[])
@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 	settings.setBitsPerPixel(0);
 	settings.setFullScreen(false);
 	settings.setInitialVolume(5.0);
-	settings.setWindowTitle("FIFE - Map Loader tech demo");
+	settings.setWindowTitle("FIFE - Tutorials");
 	settings.setDefaultFontGlyphs("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&amp;`'*#=[]\"");
-	settings.setDefaultFontPath("C:\\Documents and Settings\\jesse\\My Documents\\Programming\\FIFE\\Trunk\\clients\\rio_de_hola\\fonts\\FreeSans.ttf");
+	settings.setDefaultFontPath("..\\..\\assets\\fonts\\FreeSans.ttf");
 	settings.setImageChunkingSize(256);
 
 	if (logManager)
@@ -48,13 +48,7 @@ int main(int argc, char *argv[])
 	{
 		FIFE::MapLoader* map_loader = engine.getMapLoader();
 
-		//FIFE::MapLoader map_loader(engine.getModel(), engine.getView(), engine.getVFS(), engine.getImagePool(), engine.getAnimationPool(), engine.getRenderBackend());
-		
-		FIFE::Map* map = map_loader->loadMapFile("C:\\Documents and Settings\\jesse\\My Documents\\Programming\\FIFE\\Trunk\\clients\\rio_de_hola\\maps\\shrine.xml");
-		//FIFE::Map* map = map_loader->loadMapFile("C:\\Documents and Settings\\jesse\\My Documents\\Programming\\FIFE\\Trunk\\clients\\rio_de_hola\\maps\\tourist_beach.xml");
-
-		//settings.setDefaultFontPath("C:\\Documents and Settings\\jesse\\My Documents\\Programming\\FIFE\\Trunk\\clients\\rio_de_hola\\fonts\\samanata.ttf");
-		//FIFE::Map* map = map_loader->loadMapFile("C:\\Documents and Settings\\jesse\\My Documents\\Programming\\FIFE\\Trunk\\clients\\Zero-Projekt\\Trunk\\maps\\worldmap.xml");
+		FIFE::Map* map = map_loader->loadMapFile("..\\..\\assets\\maps\\shrine.xml");
 
 		if (map)
 		{
