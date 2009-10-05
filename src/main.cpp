@@ -1,6 +1,8 @@
 
 #include <iostream>
 
+#include "boost/filesystem.hpp"
+
 #include "modules.h"
 #include "controller/engine.h"
 #include "util/log/logger.h"
@@ -13,6 +15,8 @@
 
 #include "DemoMouseListener.h"
 
+namespace fs = boost::filesystem;
+
 int main(int argc, char *argv[])
 {
 	FIFE::Engine engine;
@@ -20,6 +24,8 @@ int main(int argc, char *argv[])
 	FIFE::EngineSettings& settings = engine.getSettings();
 
 	FIFE::LogManager* logManager = engine.getLogManager();
+
+	fs::path defaultFontPath("../../assets/fonts/FreeSans.ttf");
 
 	settings.setRenderBackend("OpenGL");
 	settings.setScreenHeight(600);
@@ -29,7 +35,7 @@ int main(int argc, char *argv[])
 	settings.setInitialVolume(5.0);
 	settings.setWindowTitle("FIFE - Tutorials");
 	settings.setDefaultFontGlyphs("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&amp;`'*#=[]\"");
-	settings.setDefaultFontPath("..\\..\\assets\\fonts\\FreeSans.ttf");
+	settings.setDefaultFontPath(defaultFontPath.file_string());
 	settings.setImageChunkingSize(256);
 
 	if (logManager)
@@ -48,7 +54,9 @@ int main(int argc, char *argv[])
 	{
 		FIFE::MapLoader* map_loader = engine.getMapLoader();
 
-		FIFE::Map* map = map_loader->loadMapFile("..\\..\\assets\\maps\\shrine.xml");
+		fs::path mapPath("../../assets/maps/shrine.xml");
+
+		FIFE::Map* map = map_loader->loadMapFile(mapPath.file_string());
 
 		if (map)
 		{
