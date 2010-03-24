@@ -1,25 +1,33 @@
-
-#ifndef DEMO_MOUSE_LISTENER_H_
-#define DEMO_MOUSE_LISTENER_H_
+//*****************************************************************************
+// FILE NAME:  MouseListener.h
+//
+//*****************************************************************************
+#ifndef MOUSE_LISTENER_H_
+#define MOUSE_LISTENER_H_
 
 #include "eventchannel/mouse/ec_imouselistener.h"
-#include "AutoScreenScroller.h"
+#include "eventchannel/mouse/ec_mouseevent.h"
+
+#include "ScreenScroller.h"
 
 namespace FIFE
 {
-	class MouseEvent;
 	class Command;
 	class Camera;
 	class EventManager;
 	class Instance;
 }
 
-class DemoMouseListener : public FIFE::IMouseListener
+class Game;
+
+//! handles listening to mouse events
+class MouseListener : public FIFE::IMouseListener
 {
 public:
-	DemoMouseListener(FIFE::Camera* cam, FIFE::EventManager* eventManager);
-	~DemoMouseListener();
+	MouseListener(Game* parent, FIFE::Camera* cam, FIFE::EventManager* eventManager);
+	~MouseListener();
 
+	// overridden from base class
 	virtual void mouseEntered(FIFE::MouseEvent& evt);
 	virtual void mouseExited(FIFE::MouseEvent& evt);
 	virtual void mousePressed(FIFE::MouseEvent& evt);
@@ -32,11 +40,15 @@ public:
 
 	void SetController(FIFE::Instance* controller);
 private:
+	void SetPreviousMouseEvent(FIFE::MouseEvent::MouseEventType type);
+private:
+	Game* m_parent;
 	int m_dragX;
 	int m_dragY;
 	FIFE::Camera* m_camera;
-	AutoScreenScroller m_autoscreenscroller;
+	ScreenScroller m_autoscreenscroller;
 	FIFE::Instance* m_controller;
+	FIFE::MouseEvent::MouseEventType m_prevEventType;
 };
 
 #endif

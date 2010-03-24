@@ -1,5 +1,9 @@
-#ifndef AUTO_SCREEN_SCROLLER_H_
-#define AUTO_SCREEN_SCROLLER_H_
+//*****************************************************************************
+// FILE NAME:  ScreenScroller.h
+//
+//*****************************************************************************
+#ifndef SCREEN_SCROLLER_H_
+#define SCREEN_SCROLLER_H_
 
 #include "util/time/timeevent.h"
 #include "eventchannel/command/ec_icommandlistener.h"
@@ -12,11 +16,12 @@ namespace FIFE
 	class EventManager;
 }
 
-class AutoScreenScroller : public FIFE::TimeEvent, public FIFE::ISdlEventListener
+//! provides automatic scrolling when the cursor is near the edge of the screen
+class ScreenScroller : public FIFE::TimeEvent, public FIFE::ISdlEventListener
 {
 public:
-	AutoScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventManager);
-	~AutoScreenScroller();
+	ScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventManager);
+	~ScreenScroller();
 
 	void updateLocation(int x, int y);
 	void unregisterEvent();
