@@ -7,8 +7,6 @@
 #include "Game.h"
 #include "ViewController.h"
 
-#include <cassert>
-
 //!***************************************************************
 //! @details:
 //! constructor
@@ -20,11 +18,11 @@
 //! an optional camera that this view controller will manipulate
 //!
 //!***************************************************************
-ViewController::ViewController(Game* parent, FIFE::Camera* camera)
-: m_parent(parent), m_camera(camera), m_zoomIncrement(0.75), 
+ViewController::ViewController(FIFE::Camera* camera)
+: m_camera(camera), m_zoomIncrement(0.75), 
   m_maxZoom(4), m_minZoom(0.25), m_rotateIncrement(90)
 {
-	assert(m_parent);
+
 }
 
 //!***************************************************************
@@ -42,7 +40,7 @@ ViewController::~ViewController()
 //! associates this view controller with a camera
 //!
 //! @param[in]: camera
-//! the camera class that will be controlled
+//! the camera that will be controlled
 //!
 //! @return: 
 //! void

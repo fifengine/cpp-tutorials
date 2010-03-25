@@ -10,13 +10,11 @@ namespace FIFE
 	class Camera;
 }
 
-class Game;
-
 //! provides manipulation of camera and view
 class ViewController
 {
 public:
-	ViewController(Game* parent, FIFE::Camera* camera=0);
+	ViewController(FIFE::Camera* camera=0);
 	~ViewController();
 	void AttachCamera(FIFE::Camera* camera);
 	void EnableCamera(bool enable);

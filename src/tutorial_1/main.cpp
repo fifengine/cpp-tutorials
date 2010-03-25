@@ -6,15 +6,12 @@
 
 int main(int argc, char *argv[])
 {
-	// create game and initialize it
+	// create and initialize game
 	Game game;
 	game.Init();
 
 	// run the game
-	while (game.Run())
-	{
-		
-	}
+	game.Run();
 
 	return 0;
 }

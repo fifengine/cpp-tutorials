@@ -44,7 +44,7 @@ Game::Game()
 	assert(NULL != m_engine);
 
 	// create view controller
-	m_viewController = new ViewController(this);
+	m_viewController = new ViewController();
 
 	// apply game settings
 	InitSettings();
@@ -228,7 +228,7 @@ void Game::CreateMap()
 		m_engine->getAnimationPool() && m_engine->getRenderBackend())
 	{
 		// create the default loader for the FIFE map format
-		FIFE::DefaultMapLoader* mapLoader = createDefaultMapLoader(m_engine->getModel(), m_engine->getVFS(), 
+		FIFE::DefaultMapLoader* mapLoader = FIFE::createDefaultMapLoader(m_engine->getModel(), m_engine->getVFS(), 
 			m_engine->getImagePool(), m_engine->getAnimationPool(), m_engine->getRenderBackend());
 
 		fs::path mapPath("../../assets/maps/shrine.xml");
