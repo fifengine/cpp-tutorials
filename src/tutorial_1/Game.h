@@ -27,7 +27,7 @@ public:
 	~Game();
 
 	void Init();
-	bool Run();
+	void Run();
 	void Quit();
 
 	void toggleConsole();

@@ -108,7 +108,7 @@ void Game::Init()
 //! bool
 //! 
 //!***************************************************************
-bool Game::Run()
+void Game::Run()
 {
 	// create FPS string
 	std::ostringstream oss;
@@ -128,12 +128,7 @@ bool Game::Run()
 
 		// engine timer tick
 		m_engine->pump();
-
-		return true;
 	}
-
-	// game has signaled quit
-	return false;
 }
 
 //!***************************************************************

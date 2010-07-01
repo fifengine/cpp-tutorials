@@ -47,6 +47,7 @@
 #include "video/animation.h"
 #include "video/renderbackend.h"
 #include "view/visual.h"
+#include "view/camera.h"
 
 #include "defaultmaploader.h"
 
@@ -459,7 +460,7 @@ namespace FIFE
 														viewportParameters[2], viewportParameters[3]);
 
 											try {
-												cam = map->addCamera(*cameraId, layer, rect, ExactModelCoordinate(0,0,0));
+												cam = map->addCamera(*cameraId, layer, rect);
 											}
 											catch (NameClash&) {
 												// TODO - handle exception
@@ -471,7 +472,7 @@ namespace FIFE
 										Rect rect(0, 0, m_renderBackend->getScreenWidth(), m_renderBackend->getScreenHeight());
 
 										try {
-											cam = map->addCamera(*cameraId, layer, rect, ExactModelCoordinate(0,0,0));
+											cam = map->addCamera(*cameraId, layer, rect);
 										}
 										catch (NameClash&) {
 											// TODO - handle exception
