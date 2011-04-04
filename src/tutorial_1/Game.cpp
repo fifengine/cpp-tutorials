@@ -109,25 +109,37 @@ void Game::Init()
 //! 
 //!***************************************************************
 void Game::Run()
-{
-	// create FPS string
-	std::ostringstream oss;
-	oss << " [FPS: " << static_cast<int>(1000/m_engine->getTimeManager()->getAverageFrameTime()) << "]";
-
+{  
+    int lastTime = 0;
+    int currTime = 0;
 	while (!m_quit)
 	{
-		// show fps in title, and keep it updated
-		FIFE::EngineSettings& settings = m_engine->getSettings();
-		std::string windowTitle = settings.getWindowTitle();
-		windowTitle += oss.str();
+        // update fps reading approx. every second
+        if ((currTime > 0) && (currTime - lastTime >= 1e3))
+        {
+            // create FPS string
+            std::ostringstream oss;
+            oss << " [FPS: " << static_cast<int>(1e3/m_engine->getTimeManager()->getAverageFrameTime()) << "]";
 
-		// this functionality should be part of the engine
-		// it will be migrated there soon, so the client
-		// does not have to call SDL directly
-		SDL_WM_SetCaption(windowTitle.c_str(), 0);
+            // show fps in title, and keep it updated
+		    FIFE::EngineSettings& settings = m_engine->getSettings();
+		    std::string windowTitle = settings.getWindowTitle();
+		    windowTitle += oss.str();
+
+		    // this functionality should be part of the engine
+		    // it will be migrated there soon, so the client
+		    // does not have to call SDL directly
+		    SDL_WM_SetCaption(windowTitle.c_str(), 0);
+
+            // update the last time fps was calculated
+            lastTime = m_engine->getTimeManager()->getTime();
+        }
 
 		// engine timer tick
 		m_engine->pump();
+
+        // update the current run time
+        currTime = m_engine->getTimeManager()->getTime();
 	}
 }
 
