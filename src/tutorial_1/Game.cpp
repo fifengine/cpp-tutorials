@@ -197,7 +197,6 @@ void Game::InitSettings()
 	settings.setWindowTitle("FIFE - Tutorials");
 	settings.setDefaultFontGlyphs("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&amp;`'*#=[]\"");
 	settings.setDefaultFontPath(defaultFontPath.file_string());
-	settings.setImageChunkingSize(256);
 
 	FIFE::LogManager* logManager = m_engine->getLogManager();
 	if (logManager)

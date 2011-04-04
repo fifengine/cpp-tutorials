@@ -35,10 +35,10 @@ ScreenScroller::ScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventMa
 		const FIFE::Rect& viewport = m_camera->getViewPort();
 
 		// calculate borders to activate automatic scrolling
-		m_scrollAreaTop = viewport.h - (viewport.h*ScrollActivationPercent);
-		m_scrollAreaBottom = viewport.y + (viewport.h*ScrollActivationPercent);
-		m_scrollAreaRight = viewport.w - (viewport.w*ScrollActivationPercent);
-		m_scrollAreaLeft = viewport.x + (viewport.w*ScrollActivationPercent);
+        m_scrollAreaTop = static_cast<int>(viewport.h - (viewport.h*ScrollActivationPercent));
+		m_scrollAreaBottom = static_cast<int>(viewport.y + (viewport.h*ScrollActivationPercent));
+		m_scrollAreaRight = static_cast<int>(viewport.w - (viewport.w*ScrollActivationPercent));
+		m_scrollAreaLeft = static_cast<int>(viewport.x + (viewport.w*ScrollActivationPercent));
 	}
 }
 

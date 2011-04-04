@@ -1,6 +1,6 @@
 /***************************************************************************
 *   Copyright (C) 2005-2009 by the FIFE team                              *
-*   http://www.fifengine.de                                               *
+*   http://www.fifengine.net                                              *
 *   This file is part of FIFE.                                            *
 *                                                                         *
 *   FIFE is free software; you can redistribute it and/or                 *
@@ -598,11 +598,11 @@ namespace FIFE
 
 					int isBlocking = 0;
 					root->QueryIntAttribute("blocking", &isBlocking);
-					obj->setBlocking(isBlocking);
+					obj->setBlocking(isBlocking!=0);
 
 					int isStatic = 0;
 					root->QueryIntAttribute("static", &isStatic);
-					obj->setStatic(isStatic);
+					obj->setStatic(isStatic!=0);
 
 					const std::string* pather = root->Attribute(std::string("pather"));
 
