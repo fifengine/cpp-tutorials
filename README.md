@@ -3,7 +3,7 @@ The instructions below will guide you through downloading and setting up the fif
 
 # Windows Install
 * Download the FIFE 0.3.2 win32 installer from sourceforge and run the installer
-* Checkout the fife-tutorials trunk to the location <path-to-fife>/tutorials
+* Checkout the fife-tutorials trunk to the location `<path-to-fife>/tutorials`
 
 ## Using Visual Studio
 * Execute the script `<path-to-fife>/build/win32/update_project_files.bat`
