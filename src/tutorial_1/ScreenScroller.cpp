@@ -169,7 +169,7 @@ void ScreenScroller::unregisterEvent()
 //! void
 //! 
 //!***************************************************************
-void ScreenScroller::updateEvent(unsigned long time)
+void ScreenScroller::updateEvent(uint32_t time)
 {
 	if (m_shouldScroll)
 	{

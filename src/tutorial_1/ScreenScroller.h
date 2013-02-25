@@ -5,6 +5,7 @@
 #ifndef SCREEN_SCROLLER_H_
 #define SCREEN_SCROLLER_H_
 
+#include "util/base/fife_stdint.h"
 #include "util/time/timeevent.h"
 #include "eventchannel/command/ec_icommandlistener.h"
 #include "eventchannel/sdl/ec_isdleventlistener.h"
@@ -27,7 +28,7 @@ public:
 	void unregisterEvent();
 private:
 	void evaluateLocation();
-	void updateEvent(unsigned long time);
+	void updateEvent(uint32_t time);
 	bool onSdlEvent(SDL_Event& evt);
 private:
 	FIFE::Camera* m_camera;

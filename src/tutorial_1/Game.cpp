@@ -6,19 +6,21 @@
 #include "ViewController.h"
 #include "MouseListener.h"
 #include "KeyListener.h"
-#include "defaultmaploader.h"
 
 // fife includes
 #include "controller/engine.h"
 #include "controller/enginesettings.h"
 #include "util/log/logger.h"
+#include "loaders/native/map/maploader.h"
 #include "model/structures/map.h"
 #include "model/structures/layer.h"
 #include "view/camera.h"
 #include "eventchannel/eventmanager.h"
 #include "gui/guimanager.h"
-#include "gui/console/console.h"
+#include "gui/guichan/guichanmanager.h"
+#include "gui/guichan/console/console.h"
 #include "util/time/timemanager.h"
+#include "video/renderbackend.h"
 
 // 3rd party includes
 #include "boost/filesystem.hpp"
@@ -51,6 +53,25 @@ Game::Game()
 
 	// initialize the engine
 	m_engine->init();
+
+	// create default gui
+	FIFE::GUIChanManager* guiManager = new FIFE::GUIChanManager();
+
+	// setup the gui
+	guiManager->setDefaultFont(
+		m_engine->getSettings().getDefaultFontPath(),
+		m_engine->getSettings().getDefaultFontSize(),
+		m_engine->getSettings().getDefaultFontGlyphs()
+	);
+		
+	guiManager->init(
+		m_engine->getRenderBackend()->getName(),
+		m_engine->getRenderBackend()->getScreenWidth(),
+		m_engine->getRenderBackend()->getScreenHeight()
+	);
+
+	m_engine->setGuiManager(guiManager);
+	m_engine->getEventManager()->addSdlEventListener(guiManager);
 }
 
 //!***************************************************************
@@ -167,7 +188,8 @@ void Game::Quit()
 void Game::toggleConsole()
 {
 	// get the engine's GUI manager
-	m_engine->getGuiManager()->getConsole()->toggleShowHide();
+	FIFE::GUIChanManager* guiManager = static_cast<FIFE::GUIChanManager*>(m_engine->getGuiManager());
+	guiManager->getConsole()->toggleShowHide();
 }
 
 //!***************************************************************
@@ -208,7 +230,7 @@ void Game::InitSettings()
 	settings.setInitialVolume(5.0);
 	settings.setWindowTitle("FIFE - Tutorials");
 	settings.setDefaultFontGlyphs("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&amp;`'*#=[]\"");
-	settings.setDefaultFontPath(defaultFontPath.file_string());
+	settings.setDefaultFontPath(defaultFontPath.string());
 
 	FIFE::LogManager* logManager = m_engine->getLogManager();
 	if (logManager)
@@ -230,17 +252,21 @@ void Game::InitSettings()
 //!***************************************************************
 void Game::CreateMap()
 {
-	if (m_engine->getModel() && m_engine->getVFS() && m_engine->getImagePool() && 
-		m_engine->getAnimationPool() && m_engine->getRenderBackend())
+	if (m_engine->getModel() && m_engine->getVFS() && m_engine->getImageManager() && 
+		m_engine->getRenderBackend())
 	{
 		// create the default loader for the FIFE map format
-		FIFE::DefaultMapLoader* mapLoader = FIFE::createDefaultMapLoader(m_engine->getModel(), m_engine->getVFS(), 
-			m_engine->getImagePool(), m_engine->getAnimationPool(), m_engine->getRenderBackend());
+		//FIFE::DefaultMapLoader* mapLoader = FIFE::createDefaultMapLoader(m_engine->getModel(), m_engine->getVFS(), 
+		//	m_engine->getImagePool(), m_engine->getAnimationPool(), m_engine->getRenderBackend());
+		FIFE::MapLoader* mapLoader = new FIFE::MapLoader(m_engine->getModel(), m_engine->getVFS(), 
+			m_engine->getImageManager(), m_engine->getRenderBackend());
 
 		fs::path mapPath("../../assets/maps/shrine.xml");
 
-		// load the map
-		m_map = mapLoader->loadMapFile(mapPath.file_string());
+		if (mapLoader) {
+			// load the map
+			m_map = mapLoader->load(mapPath.string());
+		}
 
 		// done with map loader safe to delete
 		delete mapLoader;
