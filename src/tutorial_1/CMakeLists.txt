@@ -1,0 +1,22 @@
+cmake_minimum_required (VERSION 2.6)
+project (Tutorial1)
+
+FILE(GLOB TUTORIAL1_SRC *.cpp)
+
+FIND_PACKAGE(SDL REQUIRED)
+FIND_PACKAGE(SDL_image REQUIRED)
+FIND_PACKAGE(SDL_ttf REQUIRED)
+FIND_PACKAGE(openal REQUIRED)
+
+INCLUDE_DIRECTORIES(${SDL_INCLUDE_DIR})
+
+INCLUDE_DIRECTORIES(/usr/local/include/fife/core)
+INCLUDE_DIRECTORIES(/home/mpiwpra/projects/fife/trunk/ext/guichan-0.8.2/include)
+
+add_executable(Tutorial1 ${TUTORIAL1_SRC})
+TARGET_LINK_LIBRARIES(Tutorial1 /usr/lib/i386-linux-gnu/libX11.a)
+TARGET_LINK_LIBRARIES(Tutorial1 ${SDL_LIBRARY} ${SDLIMAGE_LIBRARY} ${SDLTTF_LIBRARY})
+TARGET_LINK_LIBRARIES(Tutorial1 fife)
+TARGET_LINK_LIBRARIES(Tutorial1 GL)
+TARGET_LINK_LIBRARIES(Tutorial1 boost_system)
+TARGET_LINK_LIBRARIES(Tutorial1 ${OPENAL_LIBRARY})
