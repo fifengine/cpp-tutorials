@@ -11,7 +11,7 @@ FIND_PACKAGE(OpenAL REQUIRED)
 INCLUDE_DIRECTORIES(${SDL_INCLUDE_DIR})
 
 INCLUDE_DIRECTORIES(/usr/local/include/fife/core)
-INCLUDE_DIRECTORIES(/home/mpiwpra/projects/fife/trunk/ext/guichan-0.8.2/include)
+INCLUDE_DIRECTORIES(/home/prock/projects/fife/trunk/ext/guichan-0.8.2/include)
 
 add_executable(Tutorial1 ${TUTORIAL1_SRC})
 TARGET_LINK_LIBRARIES(Tutorial1 /usr/lib/i386-linux-gnu/libX11.a)
