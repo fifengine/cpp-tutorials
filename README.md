@@ -2,7 +2,7 @@
 The instructions below will guide you through downloading and setting up the fife engine as well as the fife-tutorials.
 
 # Windows Install
-* Download the FIFE 0.3.2 win32 installer from sourceforge and run the installer
+* Download the FIFE 0.3.4 win32 installer from sourceforge and run the installer
 * Checkout the fife-tutorials trunk to the location `<path-to-fife>/tutorials`
 
 ## Using Visual Studio
@@ -20,4 +20,12 @@ The instructions below will guide you through downloading and setting up the fif
 TBD
 
 #Linux Install
-TBD
+* Download the [latest FIFE source code](https://sourceforge.net/projects/fife/files/active/src/) and extract it.  Be sure to have all the [build dependencies](http://wiki.fifengine.net/Build_dependencies) installed.
+* Extract the source and change directory into the source dir.  `fife_0.3.4` for example.
+* Next `cd ext/guichan && ./configure && make && sudo make install && cd -`.  You have to have guichan installed in `/usr/local` for the cmake file to work properly.  If you use `scons ext` you'll need to modify the `CMakeLists.txt` file with the proper paths.
+* Type: `sudo scons install-dev`.  Once that is complete you should have a good copy of the fife library in `/usr/local/lib`
+* Clone this repository.  `git clone https://github.com/fifengine/cpp-tutorials.git`
+* `cd cpp-tutorials/src/tutoriail_1`
+* `cmake .`
+* `make`
+* Assuming that all went well go ahead and run the tutorial: `./Tutorial1`
