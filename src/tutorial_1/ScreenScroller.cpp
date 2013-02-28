@@ -174,7 +174,9 @@ void ScreenScroller::updateEvent(uint32_t time)
 	if (m_shouldScroll)
 	{
 		FIFE::Location camLocation(m_camera->getLocationRef());
-		camLocation.setMapCoordinates(m_camera->toMapCoordinates(m_scrollCoords));
+		FIFE::ExactModelCoordinate mapCoords = m_camera->toMapCoordinates(m_scrollCoords, false);
+		mapCoords.z = 0.0;
+		camLocation.setMapCoordinates(mapCoords);
 
 		m_camera->setLocation(camLocation);
 	}

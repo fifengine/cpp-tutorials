@@ -122,7 +122,9 @@ void MouseListener::mouseReleased(FIFE::MouseEvent& evt)
 		// move controller to clicked spot
 		FIFE::Location destination(m_controller->getLocation());
 		FIFE::ScreenPoint screenPoint(evt.getX(), evt.getY());
-		destination.setMapCoordinates(m_camera->toMapCoordinates(screenPoint));
+		FIFE::ExactModelCoordinate mapCoords = m_camera->toMapCoordinates(screenPoint, false);
+		mapCoords.z = 0.0;
+		destination.setMapCoordinates(mapCoords);
 		m_controller->move("walk", destination, m_controller->getTotalTimeMultiplier());
 	}
 
@@ -242,7 +244,9 @@ void MouseListener::mouseDragged(FIFE::MouseEvent& evt)
 
 		// set the new coordinates
 		FIFE::Location camLocation(m_camera->getLocationRef());
-		camLocation.setMapCoordinates(m_camera->toMapCoordinates(cameraScreenCoords));
+		FIFE::ExactModelCoordinate mapCoords = m_camera->toMapCoordinates(cameraScreenCoords, false);
+		mapCoords.z = 0.0;
+		camLocation.setMapCoordinates(mapCoords);
 		m_camera->setLocation(camLocation);
 
 		// update last saved x,y values for dragging
