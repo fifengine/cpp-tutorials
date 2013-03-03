@@ -1,34 +1,84 @@
 cmake_minimum_required (VERSION 2.6)
-project (Tutorial1)
 
-FILE(GLOB TUTORIAL1_SRC *.cpp)
+FILE(GLOB TUTORIAL1_SRC *.cpp *.h)
+
+add_executable(Tutorial1 ${TUTORIAL1_SRC})
+set_target_properties(Tutorial1 PROPERTIES DEBUG_POSTFIX "_d")
+
+add_library(fife STATIC IMPORTED)
+
+if(UNIX)
+	INCLUDE_DIRECTORIES(/usr/local/include/fife/core)
+	set_property(TARGET fife PROPERTY IMPORTED_LOCATION /usr/local/lib/libfife.a)
+	FIND_PACKAGE(X11 REQUIRED)
+	TARGET_LINK_LIBRARIES(Tutorial1 ${X11_LIBRARY})
+	TARGET_LINK_LIBRARIES(Tutorial1 Xcursor)
+	TARGET_LINK_LIBRARIES(Tutorial1 guichan)
+	TARGET_LINK_LIBRARIES(Tutorial1 guichan_sdl)
+	TARGET_LINK_LIBRARIES(Tutorial1 guichan_opengl)
+	TARGET_LINK_LIBRARIES(Tutorial1 vorbis)
+elseif(WIN32)
+	add_library(guichan STATIC IMPORTED)
+	add_library(guichan_sdl STATIC IMPORTED)
+	add_library(guichan_opengl STATIC IMPORTED)
+	add_library(vorbis_static STATIC IMPORTED)
+	add_library(vorbisfile_static STATIC IMPORTED)
+	add_library(ogg_static STATIC IMPORTED)
+	INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/../../engine/core
+						${PROJECT_SOURCE_DIR}/../../build/win32/includes/libguichan)
+	FIND_LIBRARY(FIFE_LIB fife)
+	set_property(TARGET fife PROPERTY IMPORTED_LOCATION ${FIFE_LIB})
+	FIND_LIBRARY(GUICHAN guichan)
+	set_property(TARGET guichan PROPERTY IMPORTED_LOCATION ${GUICHAN})
+	FIND_LIBRARY(GUICHAN_SDL guichan_sdl)
+	set_property(TARGET guichan_sdl PROPERTY IMPORTED_LOCATION ${GUICHAN_SDL})
+	FIND_LIBRARY(GUICHAN_OPENGL guichan_opengl)
+	set_property(TARGET guichan_opengl PROPERTY IMPORTED_LOCATION ${GUICHAN_OPENGL})
+	TARGET_LINK_LIBRARIES(Tutorial1 guichan guichan_sdl guichan_opengl)	
+	FIND_LIBRARY(VORBIS vorbis_static)
+	set_property(TARGET vorbis_static PROPERTY IMPORTED_LOCATION ${VORBIS})
+	TARGET_LINK_LIBRARIES(Tutorial1 vorbis_static)
+	FIND_LIBRARY(VORBIS_FILE vorbisfile_static)
+	set_property(TARGET vorbisfile_static PROPERTY IMPORTED_LOCATION ${VORBIS_FILE})
+	TARGET_LINK_LIBRARIES(Tutorial1 vorbisfile_static)
+	FIND_LIBRARY(OGG ogg_static)
+	set_property(TARGET ogg_static PROPERTY IMPORTED_LOCATION ${OGG})
+	TARGET_LINK_LIBRARIES(Tutorial1 ogg_static)
+	
+	ADD_CUSTOM_COMMAND(TARGET Tutorial1 POST_BUILD
+						COMMAND ${CMAKE_COMMAND} 
+						-DEXT_DLL_DIR="${EXT_DLL_DIR}"
+						-DDEST_DIR="${CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE}"
+						-P "${CMAKE_SOURCE_DIR}/CopyExtDlls.cmake"
+						COMMENT "copying dlls..."
+					   )
+endif()
 
 FIND_PACKAGE(SDL REQUIRED)
 FIND_PACKAGE(SDL_image REQUIRED)
 FIND_PACKAGE(SDL_ttf REQUIRED)
 FIND_PACKAGE(OpenAL REQUIRED)
-FIND_PACKAGE(X11 REQUIRED)
+FIND_PACKAGE(OpenGL REQUIRED)
+FIND_PACKAGE(Boost 1.47.0 COMPONENTS system filesystem regex REQUIRED)
+FIND_PACKAGE(PNG REQUIRED)
+FIND_PACKAGE(ZLIB REQUIRED)
 
-INCLUDE_DIRECTORIES(${SDL_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(
+	${SDL_INCLUDE_DIR}
+	${SDL_IMAGE_INCLUDE_DIR}
+	${SDL_TTF_INCLUDE_DIR}
+	${PNG_INCLUDE_DIR}
+	${ZLIB_INCLUDE_DIR}
+	${Boost_INCLUDE_DIR}
+)
 
-INCLUDE_DIRECTORIES(/usr/local/include/fife/core)
-
-add_library(fife STATIC IMPORTED)
-set_property(TARGET fife PROPERTY IMPORTED_LOCATION /usr/local/lib/libfife.a)
-
-add_executable(Tutorial1 ${TUTORIAL1_SRC})
-TARGET_LINK_LIBRARIES(Tutorial1 ${X11_LIBRARY})
 TARGET_LINK_LIBRARIES(Tutorial1 fife)
 TARGET_LINK_LIBRARIES(Tutorial1 ${SDL_LIBRARY})
 TARGET_LINK_LIBRARIES(Tutorial1 ${SDLIMAGE_LIBRARY})
 TARGET_LINK_LIBRARIES(Tutorial1 ${SDLTTF_LIBRARY})
-TARGET_LINK_LIBRARIES(Tutorial1 png)
-TARGET_LINK_LIBRARIES(Tutorial1 GL)
-TARGET_LINK_LIBRARIES(Tutorial1 boost_system)
-TARGET_LINK_LIBRARIES(Tutorial1 boost_filesystem)
-TARGET_LINK_LIBRARIES(Tutorial1 boost_regex)
-TARGET_LINK_LIBRARIES(Tutorial1 Xcursor)
-TARGET_LINK_LIBRARIES(Tutorial1 openal alut vorbisfile)
-TARGET_LINK_LIBRARIES(Tutorial1 guichan)
-TARGET_LINK_LIBRARIES(Tutorial1 guichan_sdl)
-TARGET_LINK_LIBRARIES(Tutorial1 guichan_opengl)
+TARGET_LINK_LIBRARIES(Tutorial1 ${PNG_LIBRARY})
+TARGET_LINK_LIBRARIES(Tutorial1 ${ZLIB_LIBRARIES})
+TARGET_LINK_LIBRARIES(Tutorial1 ${OPENGL_LIBRARY})
+TARGET_LINK_LIBRARIES(Tutorial1 ${Boost_LIBRARIES})
+TARGET_LINK_LIBRARIES(Tutorial1 ${VORBIS_LIBRARIES})
+TARGET_LINK_LIBRARIES(Tutorial1 ${OPENAL_LIBRARY})
