@@ -25,7 +25,7 @@ TBD
 * Next `cd ext/guichan && ./configure && make && sudo make install && cd -`.  You have to have guichan installed in `/usr/local` for the cmake file to work properly.  If you use `scons ext` you'll need to modify the `CMakeLists.txt` file with the proper paths.
 * Type: `sudo scons install-dev`.  Once that is complete you should have a good copy of the fife library in `/usr/local/lib`
 * Clone this repository.  `git clone https://github.com/fifengine/cpp-tutorials.git`
-* `cd cpp-tutorials/src/tutoriail_1`
+* `cd cpp-tutorials/src/tutorial_1`
 * `cmake .`
 * `make`
 * Assuming that all went well go ahead and run the tutorial: `./Tutorial1`
