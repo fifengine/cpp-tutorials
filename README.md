@@ -20,7 +20,7 @@ The instructions below will guide you through downloading and setting up the fif
 TBD
 
 #Linux Install
-* Download the [latest FIFE source code](https://sourceforge.net/projects/fife/files/active/src/) and extract it.  Be sure to have all the [build dependencies](http://wiki.fifengine.net/Build_dependencies) installed.
+* Download the [latest FIFE source code](https://sourceforge.net/projects/fife/files/active/src/) and extract it.  Be sure to have all the [build dependencies](https://github.com/fifengine/fifengine/wiki/dependencies) installed.
 * Extract the source and change directory into the source dir.  `fife_0.3.4` for example.
 * Next `cd ext/guichan && ./configure && make && sudo make install && cd -`.  You have to have guichan installed in `/usr/local` for the cmake file to work properly.  If you use `scons ext` you'll need to modify the `CMakeLists.txt` file with the proper paths.
 * Type: `sudo scons install-dev`.  Once that is complete you should have a good copy of the fife library in `/usr/local/lib`
