@@ -291,7 +291,7 @@ void Game::CreateInput()
 		m_engine->getEventManager()->addKeyListener(m_keyListener);
 
 		// attach our mouse listener to the engine
-		m_mouseListener = new MouseListener(this, m_mainCamera, m_engine->getEventManager());
+		m_mouseListener = new MouseListener(this, m_mainCamera, m_engine->getEventManager(), m_engine->getTimeManager());
 		m_engine->getEventManager()->addMouseListener(m_mouseListener);
 
 		// grab the layer that has our main character

@@ -15,6 +15,7 @@ namespace FIFE
 	class Command;
 	class Camera;
 	class EventManager;
+	class TimeManager;
 	class Instance;
 }
 
@@ -24,7 +25,7 @@ class Game;
 class MouseListener : public FIFE::IMouseListener
 {
 public:
-	MouseListener(Game* parent, FIFE::Camera* cam, FIFE::EventManager* eventManager);
+	MouseListener(Game* parent, FIFE::Camera* cam, FIFE::EventManager* eventManager, FIFE::TimeManager* timeManager);
 	~MouseListener();
 
 	// overridden from base class

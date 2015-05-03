@@ -31,8 +31,8 @@
 //! the engine event manager for registering for events
 //! 
 //!***************************************************************
-MouseListener::MouseListener(Game* parent, FIFE::Camera *cam, FIFE::EventManager* eventManager)
-: m_parent(parent), m_dragX(0), m_dragY(0), m_camera(cam), m_autoscreenscroller(cam, eventManager),
+MouseListener::MouseListener(Game* parent, FIFE::Camera *cam, FIFE::EventManager* eventManager, FIFE::TimeManager* timeManager)
+: m_parent(parent), m_dragX(0), m_dragY(0), m_camera(cam), m_autoscreenscroller(cam, eventManager, timeManager),
   m_controller(0), m_prevEventType(FIFE::MouseEvent::UNKNOWN_EVENT)
 {
 

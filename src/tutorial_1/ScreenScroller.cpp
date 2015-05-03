@@ -22,8 +22,8 @@
 //! 
 //! 
 //!***************************************************************
-ScreenScroller::ScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventManager)
-: m_camera(camera), m_eventManager(eventManager), ScrollAmount(20),
+ScreenScroller::ScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventManager, FIFE::TimeManager* timeManager)
+: m_camera(camera), m_eventManager(eventManager), m_timeManager(timeManager), ScrollAmount(20),
   ScrollActivationPercent(0.02f), m_eventRegistered(false)
 {
 	// set the period for timing event in ms
@@ -129,7 +129,7 @@ void ScreenScroller::updateLocation(int x, int y)
 		// register ourself as an event handler to make
 		// sure we can capture if our window looses focus
 		// so we don't keep scrolling in that case
-		FIFE::TimeManager::instance()->registerEvent(this);
+		m_timeManager->registerEvent(this);
 		m_eventManager->addSdlEventListener(this);
 		m_eventRegistered = true;
 
@@ -151,7 +151,7 @@ void ScreenScroller::unregisterEvent()
 {
 	if (m_eventRegistered)
 	{
-		FIFE::TimeManager::instance()->unregisterEvent(this);
+		m_timeManager->unregisterEvent(this);
 		m_eventManager->removeSdlEventListener(this);
 		m_eventRegistered = false;
 	}
