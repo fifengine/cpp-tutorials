@@ -15,13 +15,14 @@ namespace FIFE
 {
 	class Command;
 	class EventManager;
+	class TimeManager;
 }
 
 //! provides automatic scrolling when the cursor is near the edge of the screen
 class ScreenScroller : public FIFE::TimeEvent, public FIFE::ISdlEventListener
 {
 public:
-	ScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventManager);
+	ScreenScroller(FIFE::Camera* camera, FIFE::EventManager* eventManager, FIFE::TimeManager* timeManager);
 	~ScreenScroller();
 
 	void updateLocation(int x, int y);
@@ -33,6 +34,7 @@ private:
 private:
 	FIFE::Camera* m_camera;
 	FIFE::EventManager* m_eventManager;
+	FIFE::TimeManager* m_timeManager;
 	const int ScrollAmount;
 	const float ScrollActivationPercent; 
 	int m_cursorX;

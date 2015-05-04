@@ -17,8 +17,8 @@
 #include "view/camera.h"
 #include "eventchannel/eventmanager.h"
 #include "gui/guimanager.h"
-#include "gui/guichan/guichanmanager.h"
-#include "gui/guichan/console/console.h"
+#include "gui/fifechan/fifechanmanager.h"
+#include "gui/fifechan/console/console.h"
 #include "util/time/timemanager.h"
 #include "video/renderbackend.h"
 
@@ -55,7 +55,7 @@ Game::Game()
 	m_engine->init();
 
 	// create default gui
-	FIFE::GUIChanManager* guiManager = new FIFE::GUIChanManager();
+	FIFE::FifechanManager* guiManager = new FIFE::FifechanManager();
 
 	// setup the gui
 	guiManager->setDefaultFont(
@@ -188,7 +188,7 @@ void Game::Quit()
 void Game::toggleConsole()
 {
 	// get the engine's GUI manager
-	FIFE::GUIChanManager* guiManager = static_cast<FIFE::GUIChanManager*>(m_engine->getGuiManager());
+	FIFE::FifechanManager* guiManager = static_cast<FIFE::FifechanManager*>(m_engine->getGuiManager());
 	guiManager->getConsole()->toggleShowHide();
 }
 
@@ -291,7 +291,7 @@ void Game::CreateInput()
 		m_engine->getEventManager()->addKeyListener(m_keyListener);
 
 		// attach our mouse listener to the engine
-		m_mouseListener = new MouseListener(this, m_mainCamera, m_engine->getEventManager());
+		m_mouseListener = new MouseListener(this, m_mainCamera, m_engine->getEventManager(), m_engine->getTimeManager());
 		m_engine->getEventManager()->addMouseListener(m_mouseListener);
 
 		// grab the layer that has our main character
@@ -305,7 +305,7 @@ void Game::CreateInput()
 			if (m_player)
 			{
 				// set the main characters default action to standing
-				m_player->act("stand", m_player->getLocationRef(), true);
+				m_player->actRepeat("stand", m_player->getLocationRef());
 
 				// attach the mouse controller to our main character
 				// to control the player
@@ -318,7 +318,7 @@ void Game::CreateInput()
 			if (m_npc)
 			{
 				// set this character's action to standing as well
-				m_npc->act("stand", m_npc->getLocationRef(), true);
+				m_npc->actRepeat("stand", m_npc->getLocationRef());
 			}
 		}
 	}
