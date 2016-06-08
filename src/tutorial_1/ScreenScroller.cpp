@@ -198,14 +198,13 @@ void ScreenScroller::updateEvent(uint32_t time)
 //! bool
 //! 
 //!***************************************************************
+
 bool ScreenScroller::onSdlEvent(SDL_Event& evt)
 {
 	// if it is a mouse focus event and we have lost focus
 	// then we need to unregister for events until
 	// we have regained focus
-	if (evt.type == SDL_ACTIVEEVENT 
-		&& (evt.active.state & SDL_APPMOUSEFOCUS) 
-		&& !evt.active.gain)
+	if (evt.type == SDL_WINDOWEVENT && evt.window.event == SDL_WINDOWEVENT_LEAVE)
 	{
 		unregisterEvent();
 		return true;

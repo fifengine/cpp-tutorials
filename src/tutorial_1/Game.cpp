@@ -37,13 +37,10 @@ namespace fs = boost::filesystem;
 //!
 //!***************************************************************
 Game::Game()
-: m_map(0), m_mainCamera(0), m_player(0), m_mouseListener(0), m_keyListener(0), m_quit(false)
+: m_map(0), m_mainCamera(0), m_mouseListener(0), m_keyListener(0), m_player(0), m_quit(false)
 {
 	// create the engine
 	m_engine = new FIFE::Engine();
-
-	// engine must be created
-	assert(NULL != m_engine);
 
 	// create view controller
 	m_viewController = new ViewController();
@@ -150,7 +147,7 @@ void Game::Run()
 		    // this functionality should be part of the engine
 		    // it will be migrated there soon, so the client
 		    // does not have to call SDL directly
-		    SDL_WM_SetCaption(windowTitle.c_str(), 0);
+		    SDL_SetWindowTitle(m_engine->getRenderBackend()->getWindow(), windowTitle.c_str());
 
             // update the last time fps was calculated
             lastTime = m_engine->getTimeManager()->getTime();
