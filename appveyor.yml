@@ -1,0 +1,69 @@
+# Build worker image (VM template)
+image: Visual Studio 2015
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - date /T & time /T
+  - git config --global core.autocrlf input
+  - cmake --version
+  # go to hell Xamarin (see http://help.appveyor.com/discussions/problems/4569)
+  - del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+  # Set "build version number" to "short-commit-hash" or when tagged to "tag name" (Travis style)
+  - ps: >-
+      if ($env:APPVEYOR_REPO_TAG -eq "true")
+      {
+        Update-AppveyorBuild -Version "$env:APPVEYOR_REPO_TAG_NAME"
+      }
+      else
+      {
+        Update-AppveyorBuild -Version "dev-$($env:APPVEYOR_REPO_COMMIT.substring(0,7))"
+      }
+
+branches:
+  only:
+  - master
+
+clone_depth: 5
+
+version: '{build}'
+
+platform:
+  - x86
+
+configuration:
+  - Release
+  #- Debug
+
+environment:
+  matrix:
+    - generator: "Visual Studio 14"    
+    #- generator: "MinGW Makefiles"
+
+matrix:
+  fast_finish: true
+
+#cache:
+#  - c:\project\fifengine-cpp-tutorials\dependencies
+
+install:
+  # install fifengine 
+  - curl -LfsS -o libfife.zip https://ci.appveyor.com/api/buildjobs/12i848v3gvq9y00a/artifacts/libfife-dev-922c02c-VC14.zip
+  - 7z x libfife.zip -o%APPVEYOR_BUILD_FOLDER%\dependencies -y > nul
+  # install fifengine dependencies
+  - curl -LfsS -o libfife-deps.zip https://ci.appveyor.com/api/buildjobs/12i848v3gvq9y00a/artifacts/libfife-dependencies-dev-922c02c-VC14.zip
+  - 7z x libfife-deps.zip -o%APPVEYOR_BUILD_FOLDER%\dependencies -y > nul
+
+build_script:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - dir
+  # create folder for an out-of-source-tree build: "c:\projects\build"
+  - cd.. 
+  - mkdir build
+  - cd build
+  # generate build script
+  - >
+    cmake %APPVEYOR_BUILD_FOLDER%\src
+    -G "%generator%" 
+    -DCMAKE_INSTALL_PREFIX=./bin
+  # build
+  - cmake --build . --target ALL_BUILD --config %configuration%

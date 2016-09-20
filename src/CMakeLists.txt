@@ -1,55 +1,86 @@
-# define the minimum cmake version supported
-cmake_minimum_required(VERSION 2.6)
+#------------------------------------------------------------------------------
+#                          Fifengine C++ Tutorials                                         
+#------------------------------------------------------------------------------
 
-# define project name
+cmake_minimum_required(VERSION 2.8)
+
 project(fife-cpp-tutorials)
+
+#------------------------------------------------------------------------------
+#                                 Configure                                          
+#------------------------------------------------------------------------------
+
+# set path to our custom CMAKE scripts
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+# Create a "Release" build by default.
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+    "Select build type. Options are: 'Debug', 'Release', 'RelWithDebInfo' and 'MinSizeRel'."
+    FORCE
+  )
+  message(STATUS "Set CMAKE_BUILD_TYPE to default '${CMAKE_BUILD_TYPE}'.")
+endif(NOT CMAKE_BUILD_TYPE)
+
+# Do not allow an in-source-tree build, request an out-of-source-tree build.
+if (CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
+  message(FATAL_ERROR "#Please build outside of the source tree!\n                        
+                       Make a separate folder for building and run CMake there:\n
+                       mkdir _build; cd _build; cmake ..\n
+                       Before that, cleanup:\nrm -rf CMakeCache.txt CMakeFiles")
+endif()
+
+# Disable in-source builds and modifications to the source tree.
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-if(WIN32)
-	set(OUTPUT_DIR ${PROJECT_SOURCE_DIR}/../bin)
-	set(LIBRARY_BASE_DIR ${PROJECT_SOURCE_DIR}/../../build/win32/static_libs)
-	set(INC_BASE_DIR ${PROJECT_SOURCE_DIR}/../../build/win32/includes)
-	set(EXT_DLL_BASE_DIR ${PROJECT_SOURCE_DIR}/../../build/win32/binaries)
-	
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/boost_1_47_0;${CMAKE_INCLUDE_PATH}")
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/sdl_image;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/sdl;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/sdl_ttf;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/zlib;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/openal/AL;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/libpng;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/libvorbis;${CMAKE_INCLUDE_PATH})
-	set(CMAKE_INCLUDE_PATH "${INC_BASE_DIR}/libogg;${CMAKE_INCLUDE_PATH})
-	
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY${OUTPUT_DIR})
-	foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-		string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
-		set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${OUTPUT_DIR})
-	endforeach()
-	
-	if(MSVC10)
-		set(CMAKE_LIBRARY_PATH ${LIBRARY_BASE_DIR}/msvc2010)
-		set(EXT_DLL_DIR ${EXT_DLL_BASE_DIR}/msvc2010)
-	elseif (MSVC90)
-		set(CMAKE_LIBRARY_PATH ${LIBRARY_BASE_DIR}/msvc2008)
-		set(EXT_DLL_DIR ${EXT_DLL_BASE_DIR}/msvc2008)
-	elseif(MSVC80)
-		set(CMAKE_LIBRARY_PATH ${LIBRARY_BASE_DIR}/msvc2005)
-		set(EXT_DLL_DIR ${EXT_DLL_BASE_DIR}/msvc2005)
-	elseif(MINGW)
-		set(CMAKE_LIBRARY_PATH ${LIBRARY_BASE_DIR}/mingw)
-		set(EXT_DLL_DIR ${EXT_DLL_BASE_DIR}/mingw)
-	endif()
-	
-	# make sure boost options are set properly
-	add_definitionS(-DBOOST_ALL_NO_LIB)
-	set(Boost_USE_STATIC_LIBS ON)
-	set(Boost_USE_MULTITHREADED ON)
-	unset(Boost_INCLUDE_DIR CACHE)
-	unset(Boost_LIBRARY_DIRS CACHE)
-endif()
+#------------------------------------------------------------------------------
+#                                 Display Status                                         
+#------------------------------------------------------------------------------
 
-# add src subdirectory to project
+message("")
+message("== Building ${PROJECT_NAME} using build type '${CMAKE_BUILD_TYPE}'.")
+message(STATUS "    Source directory is '${PROJECT_SOURCE_DIR}'.")
+message(STATUS "    Build  directory is '${PROJECT_BINARY_DIR}'.")
+message(STATUS "    Installation path is '${CMAKE_INSTALL_PREFIX}' (set -DCMAKE_INSTALL_PREFIX=<path> to change).")
+message(STATUS "    CXX Compiler Flags: '${CMAKE_CXX_FLAGS}'.")
+message(STATUS "    Dependencies folder: '${PROJECT_SOURCE_DIR}/../dependencies'.")
+message("")
+
+#------------------------------------------------------------------------------
+#                           Find Dependencies - Windows                                        
+#------------------------------------------------------------------------------
+
+# Tell CMake where to search for binaries (dlls), includes and libs on Windows
+if(WIN32)
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}
+    "${PROJECT_SOURCE_DIR}/../dependencies/bin"
+    "${PROJECT_SOURCE_DIR}/../dependencies/include"
+    "${PROJECT_SOURCE_DIR}/../dependencies/include/SDL2"
+    "${PROJECT_SOURCE_DIR}/../dependencies/include/OpenAL"
+    "${PROJECT_SOURCE_DIR}/../dependencies/include/fife/core"
+    "${PROJECT_SOURCE_DIR}/../dependencies/include/fifechan"
+    "${PROJECT_SOURCE_DIR}/../dependencies/lib/x86"
+    "${PROJECT_SOURCE_DIR}/../dependencies/lib"
+    "${PROJECT_SOURCE_DIR}/../dependencies/lib/boost" 
+  )
+endif(WIN32)
+
+#------------------------------------------------------------------------------	
+# 							   Configure Boost
+#------------------------------------------------------------------------------
+
+add_definitionS(-DBOOST_ALL_NO_LIB)
+
+# use static libs - to avoid "LNK1104: cannot open file 'libboost_filesystem-vc140-mt-1_59.lib'"
+set(Boost_USE_STATIC_LIBS ON)     
+set(Boost_USE_MULTITHREADED ON)
+
+#------------------------------------------------------------------------------
+#                       Add Subdirectories for Tutorials
+#------------------------------------------------------------------------------
+
 add_subdirectory(tutorial_1)
