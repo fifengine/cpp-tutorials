@@ -66,4 +66,4 @@ build_script:
     -G "%generator%" 
     -DCMAKE_INSTALL_PREFIX=./bin
   # build
-  - cmake --build . --target ALL_BUILD --config %configuration%
+  - cmake --build . --target ALL_BUILD --config %configuration% -- /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
