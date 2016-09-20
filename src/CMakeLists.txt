@@ -61,12 +61,11 @@ if(WIN32)
     "${PROJECT_SOURCE_DIR}/../dependencies/include"
     "${PROJECT_SOURCE_DIR}/../dependencies/include/SDL2"
     "${PROJECT_SOURCE_DIR}/../dependencies/include/OpenAL"
-    "${PROJECT_SOURCE_DIR}/../dependencies/include/fife/core"
-    "${PROJECT_SOURCE_DIR}/../dependencies/include/fifechan"
     "${PROJECT_SOURCE_DIR}/../dependencies/lib/x86"
     "${PROJECT_SOURCE_DIR}/../dependencies/lib"
     "${PROJECT_SOURCE_DIR}/../dependencies/lib/boost" 
   )
+  set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_PREFIX_PATH})
 endif(WIN32)
 
 #------------------------------------------------------------------------------	
