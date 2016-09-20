@@ -12,6 +12,9 @@ endif(FIFECHAN_INCLUDE_DIR)
 
 find_path(FIFECHAN_INCLUDE_DIR fifechan/fifechan.hpp)
 
+# append "fifechan" to "include" path
+set(FIFECHAN_INCLUDE_DIR ${FIFECHAN_INCLUDE_DIR}/fifechan)
+
 # MSVC built fifechan may be named fifechan_static.
 # The provided project files name the library with the lib prefix.
 find_library(FIFECHAN_LIBRARY NAMES fifechan fifechan_static libfifechan libfifechan_static)
