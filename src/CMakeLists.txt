@@ -51,6 +51,28 @@ message(STATUS "    Dependencies folder: '${PROJECT_SOURCE_DIR}/../dependencies'
 message("")
 
 #------------------------------------------------------------------------------
+#                                 Compiler Options                                         
+#------------------------------------------------------------------------------
+
+if(WIN32)
+
+  if(MSVC)
+
+    # ensure we use minimal "windows.h" lib without the crazy min max macros    
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"WIN32_LEAN_AND_MEAN\"")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D \"NOMINMAX\"")
+
+    # disable SAFESEH - to avoid "LNK2026: module unsafe" on "OpenAL32.lib"
+    SET(CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS} /D \"SAFESEH:NO\"")
+    SET(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} /SAFESEH:NO")
+    SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /SAFESEH:NO")
+    SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /SAFESEH:NO")
+
+  endif(MSVC)
+
+endif(WIN32)
+
+#------------------------------------------------------------------------------
 #                           Find Dependencies - Windows                                        
 #------------------------------------------------------------------------------
 
@@ -74,7 +96,7 @@ endif(WIN32)
 
 add_definitionS(-DBOOST_ALL_NO_LIB)
 
-# use static libs - to avoid "LNK1104: cannot open file 'libboost_filesystem-vc140-mt-1_59.lib'"
+# use static libs
 set(Boost_USE_STATIC_LIBS ON)     
 set(Boost_USE_MULTITHREADED ON)
 
