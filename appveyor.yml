@@ -47,10 +47,10 @@ matrix:
 
 install:
   # install fifengine 
-  - curl -LfsS -o libfife.zip https://ci.appveyor.com/api/buildjobs/12i848v3gvq9y00a/artifacts/libfife-dev-922c02c-VC14.zip
+  - curl -LfsS -o libfife.zip https://ci.appveyor.com/api/buildjobs/7xflrp0frgit15u5/artifacts/libfife-dev-c4d5f09-VC14.zip
   - 7z x libfife.zip -o%APPVEYOR_BUILD_FOLDER%\dependencies -y > nul
   # install fifengine dependencies
-  - curl -LfsS -o libfife-deps.zip https://ci.appveyor.com/api/buildjobs/12i848v3gvq9y00a/artifacts/libfife-dependencies-dev-922c02c-VC14.zip
+  - curl -LfsS -o libfife-deps.zip https://ci.appveyor.com/api/buildjobs/7xflrp0frgit15u5/artifacts/libfife-dependencies-dev-c4d5f09-VC14.zip
   - 7z x libfife-deps.zip -o%APPVEYOR_BUILD_FOLDER%\dependencies -y > nul
 
 build_script:
