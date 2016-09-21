@@ -1,9 +1,16 @@
-# - FindFife.cmake
-# Find the native fife includes and libraries
+#------------------------------------------------------------------------------
+# FindFife.cmake
+#------------------------------------------------------------------------------
 #
-# FIFE_INCLUDE_DIR - where to find fife/core/version.h, etc.
-# FIFE_LIBRARIES - List of libraries when using fife.
-# FIFE_FOUND - True if fife found.
+# Find the native fife includes and libraries. Detect Fife version.
+#
+# FIFE_INCLUDE_DIR  - where to find fife/core/version.h, etc.
+# FIFE_LIBRARIES    - List of libraries when using fife.
+# FIFE_FOUND        - True, if fife found.
+#
+#------------------------------------------------------------------------------
+# Author: Jens A. Koch <jakoch@web.de>
+#------------------------------------------------------------------------------
 
 if(FIFE_INCLUDE_DIR)
     # Already in cache, be silent

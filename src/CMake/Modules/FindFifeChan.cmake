@@ -1,9 +1,20 @@
-# - FindFifeChan.cmake
-# Find the native fifechan includes and libraries
+#------------------------------------------------------------------------------
+# FindFifeChan.cmake
+#------------------------------------------------------------------------------
 #
-# FIFECHAN_INCLUDE_DIR - where to find fifechan/fifechan.h, etc.
-# FIFECHAN_LIBRARIES - List of libraries when using fifechan.
-# FIFECHAN_FOUND - True if fifechan found.
+# Find the native fifechan includes and libraries. Supports components.
+#
+# Usage: find_package(FifeChan COMPONENTS opengl sdl REQUIRED)
+#
+# FIFECHAN_INCLUDE_DIR        - where to find fifechan/fifechan.h, etc.
+# FIFECHAN_LIBRARIES          - List of libraries when using fifechan.
+# FIFECHAN_FOUND              - True, if fifechan found.
+# 
+# FIFECHAN_${component}_FOUND - True, if fifechan_component found.
+#
+#------------------------------------------------------------------------------
+# Author: Jens A. Koch <jakoch@web.de>
+#------------------------------------------------------------------------------
 
 if(FIFECHAN_INCLUDE_DIR)
     # Already in cache, be silent

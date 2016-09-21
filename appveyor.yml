@@ -65,11 +65,15 @@ build_script:
   - >
     cmake %APPVEYOR_BUILD_FOLDER%\src
     -G "%generator%" 
-    -DCMAKE_INSTALL_PREFIX=./bin
+    -DCMAKE_INSTALL_PREFIX=./tutorials
   # build
   - cmake --build . --target ALL_BUILD --config %configuration% -- /nologo /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
   # install
-  - cmake --build . --target INSTALL --config %configuration%
+  - cmake --build . --target INSTALL --config %configuration% -- /nologo
+  # package (with cpack)
+  #- cmake --build ./build --target PACKAGE --config %configuration% -- /nologo
 
 after_build:
-  - dir C:\projects\build /s
+  - cd C:\projects\build
+  - 7z a -tzip -mx9 "tutorials-%APPVEYOR_BUILD_VERSION%-%COMPILER%.zip" tutorials
+  - appveyor PushArtifact "tutorials-%APPVEYOR_BUILD_VERSION%-%COMPILER%.zip"
