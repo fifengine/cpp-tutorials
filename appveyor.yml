@@ -75,5 +75,7 @@ build_script:
 
 after_build:
   - cd C:\projects\build
+  - if "%generator%"=="Visual Studio 14" (set COMPILER="VC14")
+  - if "%generator%"=="MinGW Makefiles"  (set COMPILER="MinGW") 
   - 7z a -tzip -mx9 "tutorials-%APPVEYOR_BUILD_VERSION%-%COMPILER%.zip" tutorials
   - appveyor PushArtifact "tutorials-%APPVEYOR_BUILD_VERSION%-%COMPILER%.zip"
