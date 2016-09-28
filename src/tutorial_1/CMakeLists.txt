@@ -37,7 +37,7 @@ find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(OpenAL REQUIRED)
 find_package(OpenGL REQUIRED)
-find_package(TINYXML REQUIRED)
+find_package(TinyXML REQUIRED)
 
 include_directories(  
 	${Boost_INCLUDE_DIR}
