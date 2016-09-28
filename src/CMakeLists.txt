@@ -102,3 +102,33 @@ set(Boost_USE_MULTITHREADED ON)
 #------------------------------------------------------------------------------
 
 add_subdirectory(tutorial_1)
+
+#------------------------------------------------------------------------------
+#                            Package Tutorials
+#------------------------------------------------------------------------------
+
+# include system runtimes (e.g. msvcp140.dll) into "<install_prefix>/bin" folder 
+# how can i change/remove the "bin" suffix to install into <install_prefix>?
+include(InstallRequiredSystemLibraries)
+
+# set package type depending on OS
+#if(WIN32)
+#  set(CPACK_GENERATOR ${CPACK_GENERATOR} ZIP)
+#elseif(APPLE)
+#  set(CPACK_GENERATOR ${CPACK_GENERATOR} DragNDrop)
+#else()
+#  set(CPACK_GENERATOR ${CPACK_GENERATOR} TGZ)
+#endif()
+
+#set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
+
+# tell CPack all of the components to install..
+#set(CPACK_COMPONENTS_ALL executable libraries)
+
+#set(CPACK_MONOLITHIC_INSTALL on)
+
+# tell cpack to strip debug symbols from files
+#set(CPACK_STRIP_FILES 1)
+
+# this must be the last call
+#include(CPack)

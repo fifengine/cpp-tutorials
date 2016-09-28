@@ -4,7 +4,7 @@
 
 project(Tutorial1)
 
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 
@@ -96,30 +96,5 @@ install(CODE "
    COMPONENT libraries
 )
 
-#------------------------------------------------------------------------------
-#                         Package Tutorial 1                                        
-#------------------------------------------------------------------------------
 
-# set package type depending on OS
-#if(WIN32)
-#  set(CPACK_GENERATOR ZIP)
-#elseif(APPLE)
-#  set(CPACK_GENERATOR DragNDrop)
-#else()
-#  set(CPACK_GENERATOR TGZ)
-#endif()
 
-# include system runtimes (e.g. msvcp140.dll) into "<install_prefix>/bin" folder 
-# how can i change/remove the "bin" suffix to install into <install_prefix>?
-#include(InstallRequiredSystemLibraries)
-
-#set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
-
-# tell CPack all of the components to install..
-#set(CPACK_COMPONENTS_ALL executable libraries)
-
-# tell cpack to strip debug symbols from files
-#set(CPACK_STRIP_FILES           1)
-
-# this must be the last call
-#include(CPack)
