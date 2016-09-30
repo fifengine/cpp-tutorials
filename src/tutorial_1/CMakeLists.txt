@@ -73,20 +73,24 @@ install(TARGETS Tutorial1
     COMPONENT executable
 )  
 
-# set paths to executables
-set(APP ${CMAKE_INSTALL_PREFIX}/Tutorial1/Tutorial1${CMAKE_EXECUTABLE_SUFFIX}) 
+if(WIN32)
 
-# set paths to dependencies
-set(DIRS ${PROJECT_SOURCE_DIR}/../../dependencies/bin
-         ${PROJECT_SOURCE_DIR}/../../dependencies/lib
-         ${PROJECT_SOURCE_DIR}/../../dependencies/lib/x86 
-)   
+    # set paths to executables
+    set(APP ${CMAKE_INSTALL_PREFIX}/Tutorial1/Tutorial1${CMAKE_EXECUTABLE_SUFFIX}) 
 
-# copy all libraries to the binary folder
-# by calling fixup_bundle, when TARGET INSTALL is executed
-install(CODE "
-   include(BundleUtilities)
-   fixup_bundle(\"${APP}\"   \"\"   \"${DIRS}\")
-   " 
-   COMPONENT libraries
-)
+    # set paths to dependencies
+    set(DIRS ${PROJECT_SOURCE_DIR}/../../dependencies/bin
+             ${PROJECT_SOURCE_DIR}/../../dependencies/lib
+             ${PROJECT_SOURCE_DIR}/../../dependencies/lib/x86 
+    )   
+
+    # copy all libraries to the binary folder
+    # by calling fixup_bundle, when TARGET INSTALL is executed
+    install(CODE "
+       include(BundleUtilities)
+       fixup_bundle(\"${APP}\"   \"\"   \"${DIRS}\")
+       " 
+       COMPONENT libraries
+    )
+    
+endif()
