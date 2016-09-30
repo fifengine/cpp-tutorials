@@ -65,7 +65,7 @@ script:
   # start out-of-source-tree build
   - mkdir build_cpp_tutorials
   - cd build_cpp_tutorials
-  - cmake ../cpp-tutorials 
+  - cmake ../cpp-tutorials/src 
   - make -j4
   - sudo make install
   - cd ..
