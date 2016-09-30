@@ -1,6 +1,7 @@
 ## FIFE C++ Tutorials
 
 [![Build status](https://ci.appveyor.com/api/projects/status/w68crw0n1ce75ccv?svg=true)](https://ci.appveyor.com/project/jakoch/fifengine-cpp-tutorials)
+[![Build Status](https://travis-ci.org/fifengine/cpp-tutorials.svg?branch=master)](https://travis-ci.org/fifengine/cpp-tutorials)
 
 This set of tutorials will guide you through using FIFE to power your game.
 
