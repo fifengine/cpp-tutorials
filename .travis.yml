@@ -1,0 +1,72 @@
+language: cpp
+
+sudo: false
+
+matrix:
+  include:
+    - os: linux
+      sudo: required
+      dist: trusty
+      compiler: gcc
+    - os: osx
+      compiler: gcc
+
+git:
+  depth: 5
+  
+addons:
+  apt:
+    packages:
+    - mesa-common-dev
+    - swig
+    - libsdl2-dev
+    - libsdl2-image-dev
+    - libsdl2-ttf-dev
+    - libfreetype6-dev
+    - libxcursor-dev
+    - libopenal-dev
+    - libasound2-dev
+    - zlib1g-dev
+    - libboost-dev
+    - libboost-regex-dev
+    - libboost-system-dev
+    - libboost-filesystem-dev
+    - libboost-test-dev  
+    - libtinyxml-dev
+
+before_install:
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get -qq update && sudo apt-get install -y libgle3-dev liballegro5-dev libvorbis-dev libalut-dev cppcheck; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install swig sdl2 sdl2_image sdl2_ttf allegro freetype openal-soft tinyxml; fi
+  #
+  # install fifechan
+  # 
+  - git clone --quiet --depth 1 git://github.com/fifengine/fifechan.git
+  - mkdir build_fifechan
+  - cd build_fifechan
+  - cmake ../fifechan
+  - make -j4
+  - sudo make install
+  - cd ..
+  #
+  # install fife
+  #
+  - git clone --quiet --depth 1 git://github.com/fifengine/fifengine.git
+  - mkdir build_fifengine
+  - cd build_fifengine
+  - cmake ../fifengine -Dbuild-library:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF
+  - make -j4
+  - sudo make install
+  - cd ..
+
+# build fifengine-cpp-tutorials
+script:
+  - mkdir build_cpp_tutorials
+  - cd build_cpp_tutorials
+  - cmake ../cpp-tutorials 
+  - make -j4
+  - sudo make install
+  - cd ..
+  
+#notifications:
+#  irc: "irc.freenode.org#fife"
+#  email: false  
