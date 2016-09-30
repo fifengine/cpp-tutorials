@@ -14,6 +14,12 @@ add_executable(Tutorial1 ${TUTORIAL1_SRC})
 
 set_target_properties(Tutorial1 PROPERTIES DEBUG_POSTFIX "_d")
 
+if(APPLE)
+  find_package(Xcursor REQUIRED)
+  target_link_libraries(Tutorial1 ${XCURSOR_LIBRARY})
+  include(${XCURSOR_INCLUDE_DIR})
+endif()
+
 if(UNIX)
     find_package(X11 REQUIRED)
     target_link_libraries(Tutorial1 ${X11_LIBRARY})
