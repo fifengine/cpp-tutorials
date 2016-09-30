@@ -60,6 +60,9 @@ before_install:
 
 # build fifengine-cpp-tutorials
 script:
+  # leave /home/travis/build/fifengine/cpp-tutorials
+  - cd..
+  # start out-of-source-tree build
   - mkdir build_cpp_tutorials
   - cd build_cpp_tutorials
   - cmake ../cpp-tutorials 
