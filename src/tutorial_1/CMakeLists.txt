@@ -34,23 +34,23 @@ find_package(OpenAL REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(TinyXML REQUIRED)
 
-include_directories(  
+include_directories( 
+    ${ZLIB_INCLUDE_DIR}
     ${Boost_INCLUDE_DIR}
     ${OGG_INCLUDE_DIR}
     ${PNG_INCLUDE_DIR}
     ${SDL2_IMAGE_INCLUDE_DIR}
     ${SDL2_INCLUDE_DIR}
     ${SDL2_TTF_INCLUDE_DIR}
-    ${VORBIS_INCLUDE_DIR}
-    ${ZLIB_INCLUDE_DIR}
+    ${VORBIS_INCLUDE_DIR}   
     ${FIFE_INCLUDE_DIR}
     ${FIFECHAN_INCLUDE_DIR}
 )
 
+target_link_libraries(Tutorial1 ${ZLIB_LIBRARIES})
 target_link_libraries(Tutorial1 ${Boost_LIBRARIES})
 target_link_libraries(Tutorial1 ${OPENAL_LIBRARY})
 target_link_libraries(Tutorial1 ${OPENGL_LIBRARY})
-target_link_libraries(Tutorial1 ${ZLIB_LIBRARIES})
 target_link_libraries(Tutorial1 ${PNG_LIBRARIES})
 target_link_libraries(Tutorial1 ${SDL2_LIBRARY})
 target_link_libraries(Tutorial1 ${SDL2_IMAGE_LIBRARIES})
