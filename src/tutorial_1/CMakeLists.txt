@@ -11,18 +11,13 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake/Modules)
 file(GLOB TUTORIAL1_SRC *.cpp *.h)
 
 add_executable(Tutorial1 ${TUTORIAL1_SRC})
+
 set_target_properties(Tutorial1 PROPERTIES DEBUG_POSTFIX "_d")
 
 if(UNIX)
-	include_directories(/usr/local/include/fife/core)
-	set_property(TARGET fife PROPERTY IMPORTED_LOCATION /usr/local/lib/libfife.a)
-	find_package(X11 REQUIRED)
-	target_link_libraries(Tutorial1 ${X11_LIBRARY})
-	target_link_libraries(Tutorial1 Xcursor)
-	target_link_libraries(Tutorial1 fifechan)
-	target_link_libraries(Tutorial1 fifechan_sdl)
-	target_link_libraries(Tutorial1 fifechan_opengl)
-	target_link_libraries(Tutorial1 vorbis)
+    find_package(X11 REQUIRED)
+    target_link_libraries(Tutorial1 ${X11_LIBRARY})
+    target_link_libraries(Tutorial1 Xcursor)
 endif()
 
 find_package(Fife REQUIRED)
@@ -40,14 +35,14 @@ find_package(OpenGL REQUIRED)
 find_package(TinyXML REQUIRED)
 
 include_directories(  
-	${Boost_INCLUDE_DIR}
-	${OGG_INCLUDE_DIR}
-	${PNG_INCLUDE_DIR}
-	${SDL2_IMAGE_INCLUDE_DIR}
-	${SDL2_INCLUDE_DIR}
-	${SDL2_TTF_INCLUDE_DIR}
-	${VORBIS_INCLUDE_DIR}
-	${ZLIB_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIR}
+    ${OGG_INCLUDE_DIR}
+    ${PNG_INCLUDE_DIR}
+    ${SDL2_IMAGE_INCLUDE_DIR}
+    ${SDL2_INCLUDE_DIR}
+    ${SDL2_TTF_INCLUDE_DIR}
+    ${VORBIS_INCLUDE_DIR}
+    ${ZLIB_INCLUDE_DIR}
     ${FIFE_INCLUDE_DIR}
     ${FIFECHAN_INCLUDE_DIR}
 )
@@ -79,7 +74,7 @@ install(TARGETS Tutorial1
 )  
 
 # set paths to executables
-set(APP  ${CMAKE_INSTALL_PREFIX}/Tutorial1/Tutorial1${CMAKE_EXECUTABLE_SUFFIX}) 
+set(APP ${CMAKE_INSTALL_PREFIX}/Tutorial1/Tutorial1${CMAKE_EXECUTABLE_SUFFIX}) 
 
 # set paths to dependencies
 set(DIRS ${PROJECT_SOURCE_DIR}/../../dependencies/bin
@@ -95,6 +90,3 @@ install(CODE "
    " 
    COMPONENT libraries
 )
-
-
-
