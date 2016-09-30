@@ -7,9 +7,9 @@ matrix:
     - os: linux
       sudo: required
       dist: trusty
-      compiler: gcc
+      compiler: clang
     - os: osx
-      compiler: gcc
+      compiler: clang
 
 git:
   depth: 5
