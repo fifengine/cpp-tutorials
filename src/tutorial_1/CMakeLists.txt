@@ -100,3 +100,11 @@ if(WIN32)
     )
     
 endif()
+
+#------------------------------------------------------------------------------
+#                        Copy assets
+#------------------------------------------------------------------------------
+
+add_custom_command(TARGET Tutorial1 POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/../assets $<TARGET_FILE_DIR:Tutorial1>/assets)
