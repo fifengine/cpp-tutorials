@@ -216,7 +216,7 @@ void Game::InitSettings()
 	FIFE::EngineSettings& settings = m_engine->getSettings();
 
 	// get the path to the font we are going to use
-	fs::path defaultFontPath("../../assets/fonts/FreeSans.ttf");
+	fs::path defaultFontPath("assets/fonts/FreeSans.ttf");
 
 	// change the engine settings to suite our game
 	settings.setRenderBackend("OpenGL");
@@ -258,7 +258,7 @@ void Game::CreateMap()
 		FIFE::MapLoader* mapLoader = new FIFE::MapLoader(m_engine->getModel(), m_engine->getVFS(), 
 			m_engine->getImageManager(), m_engine->getRenderBackend());
 
-		fs::path mapPath("../../assets/maps/shrine.xml");
+		fs::path mapPath("assets/maps/shrine.xml");
 
 		if (mapLoader) {
 			// load the map

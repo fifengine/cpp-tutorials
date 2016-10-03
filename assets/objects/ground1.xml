@@ -1,12 +1,12 @@
 <?fife type="atlas"?>
 <atlas name="ground1.png" namespace="http://www.fifengine.net/xml/rio_de_hola" width="1008" height="480">
-	<image source="beach/06/135.png" xpos="0" ypos="0" width="127" height="96"/>
-	<image source="beach/01/045.png" xpos="127" ypos="0" width="126" height="96"/>
-	<image source="beach/01/135.png" xpos="253" ypos="0" width="126" height="96"/>
-	<image source="beach/01/225.png" xpos="379" ypos="0" width="126" height="96"/>
-	<image source="beach/01/315.png" xpos="505" ypos="0" width="126" height="96"/>
-	<image source="beach/02/045.png" xpos="631" ypos="0" width="126" height="96"/>
-	<image source="beach/02/135.png" xpos="757" ypos="0" width="126" height="96"/>
+	<image source="beach/06/135.png" xpos="0" ypos="0" width="126" height="96"/>
+	<image source="beach/01/045.png" xpos="126" ypos="0" width="126" height="96"/>
+	<image source="beach/01/135.png" xpos="252" ypos="0" width="126" height="96"/>
+	<image source="beach/01/225.png" xpos="378" ypos="0" width="126" height="96"/>
+	<image source="beach/01/315.png" xpos="504" ypos="0" width="126" height="96"/>
+	<image source="beach/02/045.png" xpos="630" ypos="0" width="126" height="96"/>
+	<image source="beach/02/135.png" xpos="756" ypos="0" width="126" height="96"/>
 	<image source="beach/02/225.png" xpos="0" ypos="96" width="126" height="96"/>
 	<image source="beach/02/315.png" xpos="126" ypos="96" width="126" height="96"/>
 	<image source="beach/03/045.png" xpos="252" ypos="96" width="126" height="96"/>
