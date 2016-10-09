@@ -13,7 +13,13 @@ TODO
 
 ### Linux
 
-TODO
+Compiling:
+
+cd src; mkdir _build; cd _build; cmake..
+
+Run:
+
+cd src/_build/tutorial_1/ ./Tutorial1
 
 ## Tutorials Overview
 
