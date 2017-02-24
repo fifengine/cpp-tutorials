@@ -36,6 +36,8 @@ public:
 	virtual void mouseClicked(FIFE::MouseEvent& evt);
 	virtual void mouseWheelMovedUp(FIFE::MouseEvent& evt);
 	virtual void mouseWheelMovedDown(FIFE::MouseEvent& evt);
+	virtual void mouseWheelMovedRight(FIFE::MouseEvent& evt);
+	virtual void mouseWheelMovedLeft(FIFE::MouseEvent& evt);
 	virtual void mouseMoved(FIFE::MouseEvent& evt);
 	virtual void mouseDragged(FIFE::MouseEvent& evt);
 

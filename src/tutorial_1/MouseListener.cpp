@@ -204,6 +204,38 @@ void MouseListener::mouseWheelMovedDown(FIFE::MouseEvent& evt)
 //! void
 //! 
 //!***************************************************************
+void MouseListener::mouseWheelMovedRight(FIFE::MouseEvent& evt)
+{
+	SetPreviousMouseEvent(evt.getType());
+}
+
+//!***************************************************************
+//! @details:
+//! overridden from base class
+//!
+//! @param[in]: evt
+//! signaled event
+//!
+//! @return: 
+//! void
+//! 
+//!***************************************************************
+void MouseListener::mouseWheelMovedLeft(FIFE::MouseEvent& evt)
+{
+	SetPreviousMouseEvent(evt.getType());
+}
+
+//!***************************************************************
+//! @details:
+//! overridden from base class
+//!
+//! @param[in]: evt
+//! signaled event
+//!
+//! @return: 
+//! void
+//! 
+//!***************************************************************
 void MouseListener::mouseMoved(FIFE::MouseEvent& evt)
 {
 	m_autoscreenscroller.updateLocation(evt.getX(), evt.getY());
