@@ -9,13 +9,13 @@ This set of tutorials will guide you through using FIFE to power your game.
 
 ### Windows
 
-TODO
+Run build.bat file
 
 ### Linux
 
 Compiling:
 
-cd src; mkdir _build; cd _build; cmake..
+cd src; mkdir _build; cd _build; cmake ..
 
 Run:
 
