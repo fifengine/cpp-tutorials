@@ -7,8 +7,8 @@
 
 #include "util/base/fife_stdint.h"
 #include "util/time/timeevent.h"
-#include "eventchannel/command/ec_icommandlistener.h"
-#include "eventchannel/sdl/ec_isdleventlistener.h"
+#include "eventchannel/command/icommandlistener.h"
+#include "eventchannel/sdl/isdleventlistener.h"
 #include "view/camera.h"
 
 namespace FIFE

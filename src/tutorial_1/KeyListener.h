@@ -5,7 +5,7 @@
 #ifndef KEY_LISTENER_H_
 #define KEY_LISTENER_H_
 
-#include "eventchannel/key/ec_ikeylistener.h"
+#include "eventchannel/key/ikeylistener.h"
 
 namespace FIFE
 {

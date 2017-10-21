@@ -6,7 +6,7 @@
 
 #include "util/time/timemanager.h"
 #include "eventchannel/eventmanager.h"
-#include "eventchannel/command/ec_command.h"
+#include "eventchannel/command/command.h"
 
 //!***************************************************************
 //! @details:
@@ -63,7 +63,7 @@ ScreenScroller::~ScreenScroller()
 //!***************************************************************
 void ScreenScroller::evaluateLocation()
 {
-	m_scrollCoords = m_camera->toScreenCoordinates(m_camera->getLocationRef().getMapCoordinates());
+	m_scrollCoords = m_camera->toScreenCoordinates(m_camera->getLocation().getMapCoordinates());
 
 	m_shouldScroll = false;
 
@@ -173,7 +173,7 @@ void ScreenScroller::updateEvent(uint32_t time)
 {
 	if (m_shouldScroll)
 	{
-		FIFE::Location camLocation(m_camera->getLocationRef());
+		FIFE::Location camLocation(m_camera->getLocation());
 		FIFE::ExactModelCoordinate mapCoords = m_camera->toMapCoordinates(m_scrollCoords, false);
 		mapCoords.z = 0.0;
 		camLocation.setMapCoordinates(mapCoords);

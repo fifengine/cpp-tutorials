@@ -5,8 +5,8 @@
 #ifndef MOUSE_LISTENER_H_
 #define MOUSE_LISTENER_H_
 
-#include "eventchannel/mouse/ec_imouselistener.h"
-#include "eventchannel/mouse/ec_mouseevent.h"
+#include "eventchannel/mouse/imouselistener.h"
+#include "eventchannel/mouse/mouseevent.h"
 
 #include "ScreenScroller.h"
 

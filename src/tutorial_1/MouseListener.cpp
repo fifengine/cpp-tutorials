@@ -6,7 +6,7 @@
 #include <iostream>
 
 // fife includes
-#include "eventchannel/mouse/ec_mouseevent.h"
+#include "eventchannel/mouse/mouseevent.h"
 #include "model/metamodel/modelcoords.h"
 #include "model/structures/location.h"
 #include "util/structures/rect.h"
@@ -271,11 +271,11 @@ void MouseListener::mouseDragged(FIFE::MouseEvent& evt)
 		FIFE::ScreenPoint delta(m_dragX - currX, m_dragY - currY);
 
 		// get the current camera location
-		FIFE::ScreenPoint cameraScreenCoords = m_camera->toScreenCoordinates(m_camera->getLocationRef().getMapCoordinates());
+		FIFE::ScreenPoint cameraScreenCoords = m_camera->toScreenCoordinates(m_camera->getLocation().getMapCoordinates());
 		cameraScreenCoords += delta;
 
 		// set the new coordinates
-		FIFE::Location camLocation(m_camera->getLocationRef());
+		FIFE::Location camLocation(m_camera->getLocation());
 		FIFE::ExactModelCoordinate mapCoords = m_camera->toMapCoordinates(cameraScreenCoords, false);
 		mapCoords.z = 0.0;
 		camLocation.setMapCoordinates(mapCoords);

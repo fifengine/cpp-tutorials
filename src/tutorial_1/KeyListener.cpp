@@ -4,8 +4,8 @@
 //*****************************************************************************
 #include <iostream>
 
-#include "eventchannel/key/ec_keyevent.h"
-#include "eventchannel/key/ec_key.h"
+#include "eventchannel/key/keyevent.h"
+#include "eventchannel/key/key.h"
 
 #include "Game.h"
 #include "ViewController.h"
