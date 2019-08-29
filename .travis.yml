@@ -6,7 +6,7 @@ matrix:
   include:
     - os: linux
       sudo: required
-      dist: trusty
+      #dist: trusty
       compiler: clang
     - os: osx
       compiler: clang
